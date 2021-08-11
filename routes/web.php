@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('users', [UsersController::class, 'index']);
+Route::get('add-users', [UsersController::class, 'create']);
+Route::post('add-users', [UsersController::class, 'store']);
+Route::get('edit-users/{id}', [UsersController::class, 'edit']);
+Route::put('update-users/{id}', [UsersController::class, 'update']);
+Route::delete('delete-users/{id}', [UsersController::class, 'destroy']);
