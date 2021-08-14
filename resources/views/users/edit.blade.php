@@ -33,7 +33,14 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="">Hasło</label>
-                                <input type="text" name="course" value="{{ $users->password }}" class="form-control">
+                                <input type="text" name="password" value="" class="form-control">
+                            </div>
+                            <div class="form-group mb-3">
+                            <label for="">Ranga</label>
+                            <select name="rank" id="rank-select">
+                                <option value={{ $users->rank }}>Administrator</option>
+                                <option value="2">User</option>
+                            </select>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="">Awatar</label>

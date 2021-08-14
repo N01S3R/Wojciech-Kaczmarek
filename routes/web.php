@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 /*
@@ -16,9 +17,26 @@ use App\Http\Controllers\UsersController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('users', [UsersController::class, 'index']);
-Route::get('add-users', [UsersController::class, 'create']);
+Route::get('users', function () {
+    return view('users.index', [
+        'users' => User::all()
+    ]);
+});
+
+Route::get('add-users', function () {
+    return view('users.create');
+});
+Route::post('add-users', function () {
+    return view('users.create');
+});
+
+
+
+Route::get('edit-users/{users}', function (User $users) {
+    return view('users.edit', [
+        'users' => $users
+    ]);
+});
 Route::post('add-users', [UsersController::class, 'store']);
-Route::get('edit-users/{id}', [UsersController::class, 'edit']);
 Route::put('update-users/{id}', [UsersController::class, 'update']);
-Route::delete('delete-users/{id}', [UsersController::class, 'destroy']);
+Route::delete('delete-users/{id}', [UsersController::class, 'delete']);
