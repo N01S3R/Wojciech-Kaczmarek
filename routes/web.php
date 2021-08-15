@@ -30,8 +30,6 @@ Route::post('add-users', function () {
     return view('users.create');
 });
 
-
-
 Route::get('edit-users/{users}', function (User $users) {
     return view('users.edit', [
         'users' => $users

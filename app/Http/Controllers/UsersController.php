@@ -30,10 +30,9 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        $rank = Rank::all();
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'rank' => 'require',
@@ -42,9 +41,9 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
-            'profile_image' => $file = $request->file('profile_image')->store('/'), 
+            'profile_image' => $file = $request->file('profile_image')->store('/'),
             'rank' => $request->rank,
-            $request->profile_image->move(public_path('/uploads/users'),$file)
+            $request->profile_image->move(public_path('/users/avatar'), $file)
         ]);
         $users->save();
 
@@ -69,26 +68,24 @@ class UsersController extends Controller
         $users = User::find($id);
         $users->name = $request->name;
         $users->password = Hash::make(trim($request->password));
-        $users->email = ($request->email);
+        $users->email = $request->email;
         $users->rank = $request->rank;
-        
-        if(Storage::exists($users->profile_image)){
-         $request->profile_image->getClientOriginalName();
-            Storage::delete($users->profile_image);
-        }
-        $users->profile_image = $file = $request->file('profile_image')->store('/'); 
-        $request->profile_image->move(public_path('/uploads/users'),$file);
+
+        //if (Storage::exists(storage_path('/users/avatar/' . $users->profile_image))) {
+        //    Storage::delete(storage_path('/users/avatar/' . $users->profile_image));
+        //}
+        //dd(storage_path('/users/avatar/' . $users->profile_image));
+        $request->file('profile_image')->store('/users/avatar');
 
         $users->update($request->all());
-        return redirect('/users')->with('status', 'Użytkownik zaktualizowany  Przed tym');
+        return redirect('/users')->with('status', 'Użytkownik zaktualizowany');
     }
 
     public function delete($id)
     {
         $users = User::findOrFail($id);
-        if(Storage::exists($users->profile_image)){
-
-            Storage::delete($users->profile_image);
+        if (Storage::exists(public_path('/users/avatar') . $users->profile_image)) {
+            Storage::delete(public_path('/users/avatar') . $users->profile_image);
         }
         $users->delete();
         return redirect()->back()->with('status', 'Użytkownik poprawnie usunięty' . $users->profile_image);

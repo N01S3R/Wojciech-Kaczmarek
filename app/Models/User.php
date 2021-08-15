@@ -15,10 +15,10 @@ class User extends Authenticatable
 {
 
     use HasFactory, Notifiable;
-   
+
     protected static function booted()
     {
-    
+
         static::creating(function ($model) {
             $model->uuid = Str::uuid();
         });
@@ -62,5 +62,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(Rank::class, 'id', 'rank_id');
     }
-
 }
