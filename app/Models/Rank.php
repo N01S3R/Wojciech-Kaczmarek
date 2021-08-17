@@ -12,4 +12,9 @@ class Rank extends Model
     protected $fillable = [
         'name'
     ];
+    public function rank()
+    {
+        // CHANGE this
+        return $this->belongsTo(Rank::class, 'id', 'rank_id');
+    }
 }

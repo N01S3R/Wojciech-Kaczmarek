@@ -44,7 +44,7 @@
                                             @else
                                                 Użytkownik
                                             @endif</td>
-                                        <td class="text-center align-middle">{{ $item->created_at }}</td>
+                                        <td class="text-center align-middle">{{ $item->updated_at }}</td>
                                         <td class="text-center align-middle">
                                             <a href="{{ url('edit-peoples/' . $item->id) }}"
                                                 class="btn btn-primary btn-sm">Edytuj</a>

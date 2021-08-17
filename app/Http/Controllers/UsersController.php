@@ -40,7 +40,7 @@ class UsersController extends Controller
         $users = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make(trim($request->password)),
             'profile_image' => $file = $request->file('profile_image')->store('/'),
             'rank' => $request->rank,
             $request->profile_image->move(public_path('/users/avatar'), $file)
