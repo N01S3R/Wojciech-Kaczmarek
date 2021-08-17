@@ -13,12 +13,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Edycja użytkownika
-                            <a href="{{ url('users') }}" class="btn btn-danger float-end">POWRÓT</a>
+                            <a href="{{ url('peoples') }}" class="btn btn-danger float-end">POWRÓT</a>
                         </h4>
                     </div>
                     <div class="card-body">
 
-                        <form action="{{ url('update-users/' . $users->id) }}" method="POST"
+                        <form action="{{ url('update-peoples/' . $users->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -45,7 +45,7 @@
                             <div class="form-group mb-3">
                                 <label for="">Awatar</label>
                                 <input type="file" name="profile_image" class="form-control">
-                                <img src="{{ asset('uploads/users/' . $users->profile_image) }}" width="70px"
+                                <img src="{{ asset('uploads/peoples/' . $users->profile_image) }}" width="70px"
                                     height="70px" alt="Image">
                             </div>
                             <div class="form-group mb-3">

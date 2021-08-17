@@ -47,7 +47,7 @@ class UsersController extends Controller
         ]);
         $users->save();
 
-        return redirect('/users')->with('status', 'Poprawnie dodano avatar');
+        return redirect('/peoples')->with('status', 'Poprawnie dodano avatar');
     }
 
     public function edit($id): View
@@ -61,7 +61,7 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
             'email' => 'required|email',
-            'password' => 'required|min:6',
+
             'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'rank' => 'require',
         ]);
@@ -71,23 +71,22 @@ class UsersController extends Controller
         $users->email = $request->email;
         $users->rank = $request->rank;
 
-        //if (Storage::exists(storage_path('/users/avatar/' . $users->profile_image))) {
-        //    Storage::delete(storage_path('/users/avatar/' . $users->profile_image));
-        //}
-        //dd(storage_path('/users/avatar/' . $users->profile_image));
-        $request->file('profile_image')->store('/users/avatar');
-
-        $users->update($request->all());
-        return redirect('/users')->with('status', 'Użytkownik zaktualizowany');
+        if ($request->hasFile('profile_image')) {
+            unlink('users/avatar/' . $users->profile_image);
+            $users->profile_image = $request->file('profile_image')->store('/');
+            $request->profile_image->move(public_path('/users/avatar'), $users->profile_image);
+        }
+        $users->save();
+        return redirect('/peoples')->with('status', 'Użytkownik zaktualizowany');
     }
 
     public function delete($id)
     {
         $users = User::findOrFail($id);
-        if (Storage::exists(public_path('/users/avatar') . $users->profile_image)) {
-            Storage::delete(public_path('/users/avatar') . $users->profile_image);
+        if ($users->profile_image) {
+            unlink('users/avatar/' . $users->profile_image);
         }
         $users->delete();
-        return redirect()->back()->with('status', 'Użytkownik poprawnie usunięty' . $users->profile_image);
+        return redirect('/peoples')->with('status', 'Użytkownik poprawnie usunięty');
     }
 }

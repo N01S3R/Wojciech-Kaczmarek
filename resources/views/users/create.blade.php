@@ -13,12 +13,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Dodaj użytkownika
-                            <a href="{{ url('users') }}" class="btn btn-danger float-end">POWRÓT</a>
+                            <a href="{{ url('peoples') }}" class="btn btn-danger float-end">POWRÓT</a>
                         </h4>
                     </div>
                     <div class="card-body">
 
-                        <form action="{{ url('add-users') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('add-peoples') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group mb-3">

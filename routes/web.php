@@ -17,24 +17,24 @@ use App\Http\Controllers\UsersController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('users', function () {
+Route::get('peoples', function () {
     return view('users.index', [
         'users' => User::all()
     ]);
 });
 
-Route::get('add-users', function () {
+Route::get('add-peoples', function () {
     return view('users.create');
 });
-Route::post('add-users', function () {
+Route::post('add-peoples', function () {
     return view('users.create');
 });
 
-Route::get('edit-users/{users}', function (User $users) {
+Route::get('edit-peoples/{users}', function (User $users) {
     return view('users.edit', [
         'users' => $users
     ]);
 });
-Route::post('add-users', [UsersController::class, 'store']);
-Route::put('update-users/{id}', [UsersController::class, 'update']);
-Route::delete('delete-users/{id}', [UsersController::class, 'delete']);
+Route::post('add-peoples', [UsersController::class, 'store']);
+Route::put('update-peoples/{id}', [UsersController::class, 'update']);
+Route::delete('delete-peoples/{id}', [UsersController::class, 'delete']);
