@@ -36,17 +36,21 @@
                                 <input type="text" name="password" value="" class="form-control">
                             </div>
                             <div class="form-group mb-3">
-                            <label for="">Ranga</label>
-                            <select name="rank" id="rank-select">
-                                <option value={{ $users->rank }}>Administrator</option>
-                                <option value="2">User</option>
-                            </select>
+                                <label for="">Ranga</label>
+                                <select name="rank" id="rank-select">
+                                    <option value={{ $users->rank }}>Administrator</option>
+                                    <option value="2">User</option>
+                                </select>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="">Awatar</label>
                                 <input type="file" name="profile_image" class="form-control">
                                 <img src="{{ asset('uploads/peoples/' . $users->profile_image) }}" width="70px"
                                     height="70px" alt="Image">
+                            </div>
+                            <div class="form-group mb-3">
+                                <img src="{{ asset('/user/avatar/' . $item->profile_image) }}" class="mx-auto d-block"
+                                    width="70px" height="70px" alt="Image">
                             </div>
                             <div class="form-group mb-3">
                                 <button type="submit" class="btn btn-primary">Edytuj</button>

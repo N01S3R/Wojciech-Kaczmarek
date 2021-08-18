@@ -41,13 +41,13 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make(trim($request->password)),
-            'profile_image' => $file = $request->file('profile_image')->store('/'),
+            'profile_image' => $file = $request->file('profile_image')->store('/user/avatar'),
             'rank' => $request->rank,
-            $request->profile_image->move(public_path('/users/avatar'), $file)
+            $request->profile_image->move(public_path('/user/avatar'), $file)
         ]);
         $users->save();
 
-        return redirect('/peoples')->with('status', 'Poprawnie dodano avatar');
+        return redirect('/peoples')->with('status', 'Poprawnie dodano użytkownika');
     }
 
     public function edit($id): View
@@ -72,9 +72,9 @@ class UsersController extends Controller
         $users->rank = $request->rank;
 
         if ($request->hasFile('profile_image')) {
-            unlink('users/avatar/' . $users->profile_image);
+            unlink('user/avatar/' . $users->profile_image);
             $users->profile_image = $request->file('profile_image')->store('/');
-            $request->profile_image->move(public_path('/users/avatar'), $users->profile_image);
+            $request->profile_image->move(public_path('/user/avatar'), $users->profile_image);
         }
         $users->save();
         return redirect('/peoples')->with('status', 'Użytkownik zaktualizowany');
@@ -84,7 +84,7 @@ class UsersController extends Controller
     {
         $users = User::findOrFail($id);
         if ($users->profile_image) {
-            unlink('users/avatar/' . $users->profile_image);
+            unlink('user/avatar/' . $users->profile_image);
         }
         $users->delete();
         return redirect('/peoples')->with('status', 'Użytkownik poprawnie usunięty');

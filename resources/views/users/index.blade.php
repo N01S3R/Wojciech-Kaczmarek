@@ -35,15 +35,16 @@
                                         <td class="text-center align-middle">{{ $item->name }}</td>
                                         <td class="text-center align-middle">{{ $item->email }}</td>
                                         <td>
-                                            <img src="{{ ('/users/avatar/' . $item->profile_image) }}"
+                                            <img src="{{ asset('/user/avatar/' . $item->profile_image) }}"
                                                 class="mx-auto d-block" width="70px" height="70px" alt="Image">
                                         </td>
                                         <td class="text-center align-middle">
-                                            @if($item->rank == 1)
+                                            @if ($item->rank == 1)
                                                 Administrator
                                             @else
                                                 Użytkownik
-                                            @endif</td>
+                                            @endif
+                                        </td>
                                         <td class="text-center align-middle">{{ $item->updated_at }}</td>
                                         <td class="text-center align-middle">
                                             <a href="{{ url('edit-peoples/' . $item->id) }}"
